@@ -31,3 +31,5 @@ ENV PYTHONUNBUFFERED 1
 RUN pipenv sync
 
 COPY . $HOME/app
+
+CMD tail -f /dev/null
