@@ -33,4 +33,4 @@ RUN pip install -r /tmp/requirements.txt
 
 COPY . $HOME/app
 
-CMD tail -f /dev/null
+CMD python consumer.py
