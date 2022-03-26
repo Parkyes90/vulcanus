@@ -25,10 +25,11 @@ WORKDIR $HOME/app
 RUN python -m pip install --upgrade pip
 RUN python -m pip install pipenv
 
-COPY Pipfile* $HOME/app/
+COPY Pipfile* /tmp/
 ENV PYTHONUNBUFFERED 1
 
-RUN pipenv sync
+RUN cd /tmp && pipenv lock -d --requirements > requirements.txt
+RUN pip install -r /tmp/requirements.txt
 
 COPY . $HOME/app
 
