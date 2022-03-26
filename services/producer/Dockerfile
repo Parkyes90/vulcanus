@@ -1,8 +1,8 @@
 FROM python:3.10-alpine
 
 # env
-ENV USER=provider \
-    HOME=/home/provider
+ENV USER=producer \
+    HOME=/home/producer
 ENV USER_BIN_PATH=${HOME}/.local/bin
 ENV PATH $PATH:${USER_BIN_PATH}
 
@@ -18,7 +18,7 @@ RUN adduser \
 	--ingroup "$USER" \
     "$USER"
 
-USER provider
+USER producer
 WORKDIR $HOME/app
 
 ## python deps
@@ -30,3 +30,5 @@ ENV PYTHONUNBUFFERED 1
 
 RUN cd /tmp && pipenv lock -d --requirements > requirements.txt
 RUN pip install -r /tmp/requirements.txt
+
+CMD tail -f /dev/null

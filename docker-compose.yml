@@ -4,18 +4,27 @@ services:
     image: wurstmeister/zookeeper:3.4.6
   kafka: # default port 9092
     image: wurstmeister/kafka:2.12-2.3.0
+    hostname: kafka
     depends_on:
       - zookeeper
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ADVERTISED_PORT: 9092
-      KAFKA_CREATE_TOPICS: "default:1:1" # Topic명:Partition개수:Replica개수
+      KAFKA_CREATE_TOPICS: "default:2:1" # Topic명:Partition개수:Replica개수
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-  provider:
-    build: ./services/provider
+  producer:
+    restart: always
+    depends_on:
+      - zookeeper
+      - kafka
+    build: services/producer
     volumes:
-      - ./services/provider:/home/provider/app
+      - ./services/producer:/home/producer/app
   consumer:
+    restart: always
+    depends_on:
+      - zookeeper
+      - kafka
     build: ./services/consumer
     volumes:
       - ./services/consumer:/home/consumer/app
