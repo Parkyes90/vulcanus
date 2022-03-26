@@ -1,0 +1,10 @@
+version: "3.10"
+services:
+  provider:
+    build: ./services/provider
+    volumes:
+      - ./services/provider:/home/provider/app
+  consumer:
+    build: ./services/consumer
+    volumes:
+      - ./services/consumer:/home/consumer/app
