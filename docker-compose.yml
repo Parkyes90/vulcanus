@@ -12,19 +12,17 @@ services:
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_CREATE_TOPICS: "default:2:1" # Topic명:Partition개수:Replica개수
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-  producer:
+  posts: &posts
     restart: always
     depends_on:
       - zookeeper
       - kafka
-    build: services/producer
+    build: services/posts
     volumes:
-      - ./services/producer:/home/producer/app
-  consumer:
-    restart: always
-    depends_on:
-      - zookeeper
-      - kafka
-    build: ./services/consumer
-    volumes:
-      - ./services/consumer:/home/consumer/app
+      - ./services/posts:/home/posts/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+  posts_consumer:
+    <<: *posts
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
