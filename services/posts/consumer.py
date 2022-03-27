@@ -1,6 +1,10 @@
-import json
+import os
+import django
 
 from kafka import KafkaConsumer
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+django.setup()
 
 consumer = KafkaConsumer(
     "default",
