@@ -33,3 +33,12 @@ services:
     build: services/client
     volumes:
       - ./services/client:/app
+  nginx:
+    depends_on:
+      - client
+      - posts
+    restart: always
+    build:
+      context: ./nginx
+    ports:
+      - "3050:80"
