@@ -12,6 +12,8 @@ services:
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_CREATE_TOPICS: "default:2:1" # Topic명:Partition개수:Replica개수
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  redis:
+    image: redis:6.2.6
   posts: &posts
     restart: always
     depends_on:

@@ -7,6 +7,10 @@ name = "pypi"
 django = "*"
 kafka-python = "*"
 channels = "*"
+django-extensions = "*"
+channels-redis = "*"
+djangorestframework = "*"
+djangorestframework-camel-case = "*"
 
 [dev-packages]
 
